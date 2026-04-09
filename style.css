@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #6366f1; /* Indigo Modern */
-    --secondary-color: #1e293b; /* Slate Dark */
+    --primary-color: #6366f1;
+    --secondary-color: #1e293b;
     --bg-light: #f8fafc;
     --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
@@ -18,7 +18,6 @@ body {
     height: 100vh;
 }
 
-/* Sidebar แบบการ์ดเมนู */
 .sidebar {
     width: 360px;
     background: white;
@@ -41,7 +40,6 @@ body {
     overflow-y: auto;
 }
 
-/* ปรับแต่งหัวข้อ */
 .controls-container b {
     display: block;
     margin-top: 24px;
@@ -52,7 +50,6 @@ body {
     letter-spacing: 0.05em;
 }
 
-/* ปรับแต่ง Input ให้ดูแพง */
 input, select {
     width: 100%;
     padding: 10px 14px;
@@ -71,7 +68,6 @@ input:focus, select:focus {
     background-color: white;
 }
 
-/* ปุ่มกดแบบ Modern */
 button {
     width: 100%;
     padding: 12px;
@@ -90,7 +86,6 @@ button:hover {
     border-color: #cbd5e1;
 }
 
-/* ปุ่ม Active / Primary */
 .print-btn {
     margin: 24px;
     background: var(--primary-color) !important;
@@ -105,7 +100,6 @@ button:hover {
     box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
 }
 
-/* ส่วนแสดงผลขวามือ */
 .main-content {
     flex: 1;
     padding: 40px;
@@ -123,7 +117,6 @@ button:hover {
     margin-bottom: 40px;
 }
 
-/* ตารางแบบ Clean Design */
 table {
     background: white;
     border-radius: 12px;
