@@ -1,0 +1,105 @@
+/* การจัดหน้าจอหลัก */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar ด้านซ้าย */
+.sidebar {
+    width: 350px;
+    background: #ffffff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.sidebar-header {
+    padding: 20px;
+    background: #2c3e50;
+    color: white;
+}
+
+.sidebar-header h2 { margin: 0; font-size: 20px; }
+.sidebar-header p { margin: 5px 0 0; font-size: 12px; opacity: 0.8; }
+
+.controls-container {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto; /* ให้ฝั่งซ้ายเลื่อนขึ้นลงได้ */
+}
+
+/* ปรับแต่งหัวข้อและ Input ใน Sidebar */
+.controls-container b { display: block; margin-top: 15px; margin-bottom: 5px; color: #34495e; }
+.controls-container input, .controls-container select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* พื้นที่แสดงผลด้านขวา */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#canvas-parent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+#table-parent { width: 100%; display: flex; justify-content: center; }
+
+/* ปุ่มพิมพ์ */
+.print-btn {
+    margin: 20px;
+    padding: 15px;
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.print-btn:hover { background: #a29bfe; }
+
+/* --- ระบบการพิมพ์ (PRINT SYSTEM) --- */
+@media print {
+    .no-print { display: none !important; }
+    .print-only-report { display: block !important; padding: 20px; }
+    
+    #canvas-parent canvas {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    
+    table {
+        width: 100% !important;
+        border-collapse: collapse;
+        page-break-inside: avoid;
+        font-size: 10px !important;
+    }
+}
+
+.print-only-report { display: none; }
+.report-header { text-align: center; border-bottom: 2px solid #333; margin-bottom: 20px; }
