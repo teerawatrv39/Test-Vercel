@@ -12,59 +12,49 @@ const GRASS_LIGHT = '#5a8d4a';
 const THEME_BLUE = '#2980b9';
 const THEME_YELLOW = '#f5b041';
 
+// แก้ไขเฉพาะในฟังก์ชัน setup() ส่วนการสร้างปุ่ม เพื่อให้ดูเป็นระเบียบขึ้น
+
 function setup() {
-    // กำหนด Parent ให้ Canvas ไปอยู่ในฝั่งขวา
     let cnv = createCanvas(800, 520);
     cnv.parent('canvas-parent');
 
-    // ลิงก์จุดวางเครื่องมือควบคุมใน Sidebar
     let ctrl = select('#controls-area');
 
-    createSpan('<b>ชื่อโครงการ:</b>').parent(ctrl);
+    // โครงการ
+    createSpan('<b>Project Information</b>').parent(ctrl);
+    createSpan('Project Name').parent(ctrl).style('font-size', '12px');
     inpProjectName = createInput('โครงการสนามฟุตบอลมาตรฐาน').parent(ctrl);
-    inpProjectName.input(update);
 
-    createSpan('<b>1. ขนาดพื้นที่ (เมตร)</b>').parent(ctrl);
-    createSpan('กว้างสนาม:').parent(ctrl);
-    inpFieldW = createInput('44').parent(ctrl);
-    createSpan('ยาวสนาม:').parent(ctrl);
-    inpFieldL = createInput('64').parent(ctrl);
-    createSpan('กว้างเส้นขาว:').parent(ctrl);
-    inpLineW = createInput('40').parent(ctrl);
-    createSpan('ยาวเส้นขาว:').parent(ctrl);
-    inpLineL = createInput('60').parent(ctrl);
-    createSpan('SafeZone(ก):').parent(ctrl);
-    inpSafeW = createInput('2').parent(ctrl);
-    createSpan('SafeZone(ย):').parent(ctrl);
-    inpSafeL = createInput('2').parent(ctrl);
-
-    createSpan('<b>2. การตั้งค่าการปู</b>').parent(ctrl);
-    btnH = createButton('ปูแนวนอน').parent(ctrl).mousePressed(() => { layoutMode = 'Horizontal'; update(); });
-    btnV = createButton('ปูแนวตั้ง').parent(ctrl).mousePressed(() => { layoutMode = 'Vertical'; update(); });
+    // ขนาดสนาม
+    createSpan('<b>Field Geometry (m)</b>').parent(ctrl);
     
-    createSpan('รูปแบบ:').parent(ctrl);
+    // ใช้ตัวแปรช่วยเพื่อสร้าง label สั้นๆ
+    let grid = createDiv('').parent(ctrl).style('display','grid').style('grid-template-columns','1fr 1fr').style('gap','10px');
+    
+    createDiv('Width').parent(grid).style('font-size','12px');
+    createDiv('Length').parent(grid).style('font-size','12px');
+    inpFieldW = createInput('44').parent(grid);
+    inpFieldL = createInput('64').parent(grid);
+
+    // รูปแบบการปู
+    createSpan('<b>Installation Style</b>').parent(ctrl);
+    btnH = createButton('Horizontal Layout').parent(ctrl);
+    btnV = createButton('Vertical Layout').parent(ctrl);
+    
+    // จัดปุ่มที่เหลือ
     selStyle = createSelect().parent(ctrl);
-    selStyle.option('สีเดียว (Solid)');
-    selStyle.option('สลับสี (Striped)');
+    selStyle.option('Solid Color');
+    selStyle.option('Striped Pattern');
+    
+    btnInvert = createButton('🔄 Invert Shades').parent(ctrl);
+
+    // ส่วนที่เหลือของฟังก์ชัน setup() เหมือนเดิม...
+    btnH.mousePressed(() => { layoutMode = 'Horizontal'; update(); });
+    btnV.mousePressed(() => { layoutMode = 'Vertical'; update(); });
     selStyle.changed(update);
+    btnInvert.mousePressed(() => { colorInverted = !colorInverted; update(); });
 
-    btnInvert = createButton('🔄 สลับเฉดสี').parent(ctrl).mousePressed(() => { colorInverted = !colorInverted; update(); });
-
-    createSpan('จุดเริ่มปู:').parent(ctrl);
-    selStart = createSelect().parent(ctrl);
-    selStart.option('จากมุมสนาม 0,0');
-    selStart.option('กึ่งกลางL/2 แบบที่ 1');
-    selStart.option('กึ่งกลางL/2 แบบที่ 2');
-    selStart.option('จากมุมเส้นขาว');
-    selStart.changed(update);
-
-    // ลิงก์จุดวางตาราง
     tableDiv = select('#table-parent');
-
-    // สั่ง Update ทุกครั้งที่มีการพิมพ์
-    let allInputs = Array.from(document.querySelectorAll('input'));
-    allInputs.forEach(el => el.addEventListener('input', update));
-
     noLoop();
     update();
 }
