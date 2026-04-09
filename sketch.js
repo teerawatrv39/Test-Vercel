@@ -14,41 +14,41 @@ const THEME_YELLOW = '#f5b041';
 
 // แก้ไขเฉพาะในฟังก์ชัน setup() ส่วนการสร้างปุ่ม เพื่อให้ดูเป็นระเบียบขึ้น
 
+// แก้ไขเฉพาะในฟังก์ชัน setup() ส่วนการสร้างปุ่ม เพื่อให้ดูเป็นระเบียบขึ้น
+
 function setup() {
     let cnv = createCanvas(800, 520);
     cnv.parent('canvas-parent');
 
     let ctrl = select('#controls-area');
 
-    // โครงการ
+    // Section: Project Info
     createSpan('<b>Project Information</b>').parent(ctrl);
     createSpan('Project Name').parent(ctrl).style('font-size', '12px');
     inpProjectName = createInput('โครงการสนามฟุตบอลมาตรฐาน').parent(ctrl);
 
-    // ขนาดสนาม
+    // Section: Field Geometry
     createSpan('<b>Field Geometry (m)</b>').parent(ctrl);
-    
-    // ใช้ตัวแปรช่วยเพื่อสร้าง label สั้นๆ
     let grid = createDiv('').parent(ctrl).style('display','grid').style('grid-template-columns','1fr 1fr').style('gap','10px');
     
-    createDiv('Width').parent(grid).style('font-size','12px');
-    createDiv('Length').parent(grid).style('font-size','12px');
+    createDiv('Width').parent(grid).style('font-size', '12px');
+    createDiv('Length').parent(grid).style('font-size', '12px');
     inpFieldW = createInput('44').parent(grid);
     inpFieldL = createInput('64').parent(grid);
 
-    // รูปแบบการปู
+    // Section: Installation
     createSpan('<b>Installation Style</b>').parent(ctrl);
-    btnH = createButton('Horizontal Layout').parent(ctrl);
-    btnV = createButton('Vertical Layout').parent(ctrl);
+    let btnGroup = createDiv('').parent(ctrl).style('display','flex').style('gap','5px').style('margin-bottom','10px');
+    btnH = createButton('Horizontal').parent(btnGroup);
+    btnV = createButton('Vertical').parent(btnGroup);
     
-    // จัดปุ่มที่เหลือ
     selStyle = createSelect().parent(ctrl);
     selStyle.option('Solid Color');
     selStyle.option('Striped Pattern');
     
     btnInvert = createButton('🔄 Invert Shades').parent(ctrl);
 
-    // ส่วนที่เหลือของฟังก์ชัน setup() เหมือนเดิม...
+    // Events
     btnH.mousePressed(() => { layoutMode = 'Horizontal'; update(); });
     btnV.mousePressed(() => { layoutMode = 'Vertical'; update(); });
     selStyle.changed(update);
